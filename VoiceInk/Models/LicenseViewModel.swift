@@ -33,6 +33,9 @@ class LicenseViewModel: ObservableObject {
     }
     
     private func loadLicenseState() {
+        licenseKey = "free"
+        licenseState = .licensed
+        
         // Check for existing license key
         if let licenseKey = userDefaults.licenseKey {
             self.licenseKey = licenseKey
