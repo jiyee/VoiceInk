@@ -54,7 +54,6 @@ class Recorder: ObservableObject {
     private func configureAudioSession(with deviceID: AudioDeviceID) async throws {
         do {
             _ = try AudioDeviceConfiguration.configureAudioSession(with: deviceID)
-            try AudioDeviceConfiguration.setDefaultInputDevice(deviceID)
         } catch {
             logger.error("❌ Failed to configure audio session: \(error.localizedDescription)")
             throw error
@@ -67,6 +66,7 @@ class Recorder: ObservableObject {
         Task { 
             await mediaController.muteSystemAudio()
         }
+        
         let deviceID = deviceManager.getCurrentDevice()
         if deviceID != 0 {
             do {
@@ -78,6 +78,20 @@ class Recorder: ObservableObject {
         
         engine = AVAudioEngine()
         let inputNode = engine!.inputNode
+        
+        // Configure the audio unit with the selected device
+        if deviceID != 0 {
+            guard let audioUnit = inputNode.audioUnit else {
+                throw AudioConfigurationError.failedToGetAudioUnit
+            }
+            do {
+                try AudioDeviceConfiguration.configureAudioUnit(audioUnit, with: deviceID)
+            } catch {
+                logger.error("❌ Failed to configure audio unit: \(error.localizedDescription)")
+                throw error
+            }
+        }
+        
         let inputFormat = inputNode.outputFormat(forBus: 0)
         
         let whisperSettings: [String: Any] = [
