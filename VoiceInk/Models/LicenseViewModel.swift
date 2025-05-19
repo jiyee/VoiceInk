@@ -33,6 +33,11 @@ class LicenseViewModel: ObservableObject {
     }
     
     private func loadLicenseState() {
+        licenseKey = "Jiyee Sheng"
+        licenseState = .licensed
+        userDefaults.licenseKey = "Jiyee Sheng"
+        userDefaults.activationId = "Jiyee Sheng"
+        
         // Check for existing license key
         if let licenseKey = userDefaults.licenseKey {
             self.licenseKey = licenseKey

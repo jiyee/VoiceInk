@@ -126,11 +126,22 @@ import Foundation
              displayName: "Large v3 Turbo (Quantized)",
              size: "547 MiB",
              supportedLanguages: getLanguageDictionary(isMultilingual: true, isLargeV3: true),
-             description: "Quantized version of Large v3 Turbo, faster with slightly lower accuracy",
+             description: "Quantized version(q5_0) of Large v3 Turbo, faster with slightly lower accuracy",
              speed: 0.7,
              accuracy: 0.96,
              ramUsage: 1.0,
              hash: "e050f7970618a659205450ad97eb95a18d69c9ee"
+         ),
+         PredefinedModel(
+             name: "ggml-large-v3-turbo-q8_0",
+             displayName: "Large v3 Turbo (Quantized)",
+             size: "874 MiB",
+             supportedLanguages: getLanguageDictionary(isMultilingual: true, isLargeV3: true),
+             description: "Quantized version(q8_0) of Large v3 Turbo, faster with slightly lower accuracy",
+             speed: 0.7,
+             accuracy: 0.97,
+             ramUsage: 1.1,
+             hash: "da39a3ee5e6b4b0d3255bfef95601890afd80709"
          ),
      ]
  
